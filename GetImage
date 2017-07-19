@@ -1,0 +1,79 @@
+#!/usr/bin/python
+#-*- coding:utf-8-*-
+
+import re
+import os
+import urllib
+import urllib2
+
+class Main():
+    def GetUrlcon(self):
+        print "路径:" ,url
+        urlGet = urllib.urlopen(url);
+        urlRead = urlGet.read();
+        return urlRead
+
+
+    def MkdirFile(self):
+        print path
+        source = path.strip(' . ');
+        print source
+        isExists = os.path.exists(source)
+        if not isExists:
+            print u"新建文件为",path, u"文件夹";
+            os.mkdir(path);
+            return True;
+        else:
+            print u"该文件夹以存在";
+            return False;
+
+    def SaveInFile(self):
+        number = 1;
+        imglist = self.GetImgList()
+        print "获取URL 中图片信息的集合",imglist;
+        for imgUrl in imglist:
+            Imgpath = imgUrl.split('.')
+            print "获取经过处理的图片路劲信息:",Imgpath
+            Tfile = Imgpath.pop()
+            print "Tfile:",Tfile
+            if len(Tfile) > 3:
+                Tfile = 'jpg';
+            fileName = name + "/" + str(number) + "." + Tfile
+            print "fileName:",fileName
+            # 对于每张图片地址，进行保存
+            try:
+                    print "Tfile初始值为jpg"
+                    u = urllib2.urlopen(imgUrl)
+                    data = u.read()
+                    #print data
+                    f = open(fileName, 'wb+')
+                    f.write(data)
+                    print u'正在保存的一张图片为', fileName
+                    f.close()
+            except urllib2.URLError as e:
+                    print (e.reason)
+            number += 1
+
+
+    def GetImgList(self):
+        urlRead = self.GetUrlcon()
+        #print "获取到的URL信息:",urlRead
+        reg = r'src="(.+?\.jpg)" pic_ext'
+        Imge = re.compile(reg)
+        print "imge的值：",Imge
+        Imglist = Imge.findall(urlRead)
+        print "打印此路径下imge 信息的集合:",Imglist
+        return Imglist
+
+
+if __name__ == "__main__":
+    #url="http://s.cimg.163.com/i/cms-bucket.nosdn.127.net/eee6efdad28b4a2fac9cf5d39f2273b920170315170659.jpeg.1920x1080.auto.jpg"
+    url = "http://tieba.baidu.com/p/2460150866"
+    #url= "https://www.baidu.com/s?ie=utf-8&f=3&rsv_bp=1&tn=97175858_hao_pg&wd=%E4%BA%AC%E4%B8%9C%E5%95%86%E5%9F%8E&oq=python%2520%25E7%2588%25AC%25E8%2599%25AB%25E6%258A%2593%25E5%258F%2596%25E5%259B%25BE%25E7%2589%2587&rsv_pq=dda7354c00159d74&rsv_t=3360b0vblFGGy%2BuDRnNDc26g8txZNzY6U%2FkoRT3apRHPvpxKAN%2FKWGAvUGtccb87k%2FuRzFu3&rqlang=cn&rsv_enter=1&inputT=5009154&rsv_sug3=48&rsv_sug1=32&rsv_sug7=100&rsv_sug2=1&prefixsug=ji&rsp=1&rsv_sug4=5009155"
+    path = '图片'.decode('utf8')
+    name = u"图片"
+    Mai = Main()
+    Mai.GetUrlcon()
+    Mai.MkdirFile()
+    Mai.GetImgList()
+    Mai.SaveInFile()
