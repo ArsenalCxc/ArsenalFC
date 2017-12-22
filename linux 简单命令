@@ -1,0 +1,14 @@
+Linux防火墙(Iptables)重启系统生效
+开启： chkconfig iptables on  
+关闭： chkconfig iptables off  
+
+Linux防火墙(Iptables) 即时生效，重启后失效
+开启： service iptables start  
+关闭： service iptables stop  
+
+开启25和110端口，
+/etc/sysconfig/iptables
+
+-A RH-Firewall-1-INPUT -m state --state NEW -p tcp -m tcp --dport 25 --syn -j ACCEPT  
+ 
+-A RH-Firewall-1-INPUT -m state --state NEW -p tcp -m tcp --dport 110 --syn -j ACCEPT
