@@ -78,4 +78,9 @@ wc -w filename 报告单词数
 Linux shell - `dirname $0` 定位到运行脚本的相对位置
 Linux shell - `basename $0` 获取当前脚本执行名
 
-
+-eq 等于
+-ne 不等于
+-gt 大于
+-ge 大于等于
+-lt 小于
+-le 小于等于
