@@ -12,3 +12,39 @@ Linux防火墙(Iptables) 即时生效，重启后失效
 -A RH-Firewall-1-INPUT -m state --state NEW -p tcp -m tcp --dport 25 --syn -j ACCEPT  
  
 -A RH-Firewall-1-INPUT -m state --state NEW -p tcp -m tcp --dport 110 --syn -j ACCEPT
+
+
+压缩 
+tar –cvf filename.tar /filename //将目录里所有文件打包
+tar –czf filename.tar.gz /filename //将目录里所有文件打包成filename.tar后，并且将其用gzip压缩，生成一个gzip压缩过的包，命名为filename.tar.gz  
+tar –cjf filename.tar.bz2 /filename //将目录里所有文件打包成filename.tar后，并且将其用bzip2压缩，生成一个bzip2压缩过的包，命名为filename.tar.bz2  
+tar –cZf filename.tar.Z /filename   //将目录里所有jpg文件打包成filename.tar后，并且将其用compress压缩，生成一个umcompress压缩过的包，命名为filename.tar.Z 
+
+Linux压缩保留源文件的方法：   
+gzip –c filename > filename.gz   
+
+
+把/home目录下面的mydata目录压缩为mydata.zip
+zip -r mydata.zip mydata #压缩mydata目录
+
+
+解压
+
+tar –xvf file.tar //解压 tar包  
+tar -zxvf file.tar.gz //解压tar.gz  
+tar -jxvf file.tar.bz2   //解压 tar.bz2  
+tar –Zxvf file.tar.Z //解压tar.Z  
+
+Linux解压缩保留源文件的方法：   
+gunzip –c filename.gz > filename   
+gunzip的用法
+
+把/home目录下面的mydata.zip解压到mydatabak目录里面
+unzip mydata.zip -d mydatabak
+
+
+
+查找目录下的所有文件中是否含有某个字符串
+find .|xargs grep -ri "xxxx"
+查找目录下的所有文件中是否含有某个字符串,并且只打印出文件名
+find .|xargs grep -ri "xxxx" -l 
