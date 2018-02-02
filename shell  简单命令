@@ -49,6 +49,13 @@ grep -v "grep"
 awk  分隔符
 awk '{print $2,"2"; print $3,"1"}'
 打印当前数据条的 第二个变量 和第三个变量
+awk -F '\\|#\\|' 指定分隔符 "|#|" 
+awk -F '\\|#\\|' 'OFS="|#|"{$NF="";print}' b.csv |sed 's/|#|$//g' >a.txt
+ 删除最后列的分隔符
+ cat ${saveFile} | awk -F '\\|#\\|' '{for (i=1 ;i<=NF;i++) if(i==2) {printf  "179_"$i "|#|" } else {printf $i "|#|"}; printf "\n" }'>b.csv
+ 修改文件内其中一列的数据
+ 
+
 
 sort 
 排序默认升序
@@ -63,6 +70,16 @@ uniq
 -s<字符位置>或--skip-chars=<字符位置>：忽略比较指定的字符；
 -u或——unique：仅显示出一次的行列；
 -w<字符位置>或--check-chars=<字符位置>：指定要比较的字符。
+
+sed -i 's/*/%/g' b.csv
+字符串替换
+
+echo "$saveFile"|grep -q "a"
+if [ $? -eq 0 ]
+判断字符串是否存在与文件名内
+
+cat ${saveFile} | sed 's:^:a174_:' >a.csv
+开始位置添加字符串
 
 wc -l
 显示行数
