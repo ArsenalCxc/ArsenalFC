@@ -1,0 +1,24 @@
+#一个类只存在一个实例
+class Singleton(object):
+    instance=None
+    def __new__(cls, *args, **kwargs):
+        if not cls.instance:
+            cls.instance=super(Singleton, cls).__new__(cls, *args, **kwargs)
+        return cls.instance
+class MyClass(Singleton):
+    def __init__(self):
+        self.name="tom"
+        self.age=18
+    def fun(self):
+        return {self.name:self.age}
+
+one = MyClass()
+two = MyClass()
+
+print one
+print two
+<__main__.MyClass object at 0x0000000005250B70>
+<__main__.MyClass object at 0x0000000005250B70>
+
+print one.fun()
+{'tom': 18}
