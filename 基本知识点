@@ -1,0 +1,121 @@
+# -*- coding:utf8 -*-
+
+import os
+
+
+a_string = "This is a global variable"
+def foo():
+     print locals()
+print globals() # doctest: +ELLIPSIS
+foo() # 2
+
+
+def exception():
+    # !/usr/bin/python
+    # -*- coding: UTF-8 -*-
+
+    try:
+        1 / 0
+    except Exception as e:
+        '''异常的父类，可以捕获所有的异常'''
+        print "0不能被除"
+        return
+    else:
+        '''保护不抛出异常的代码'''
+        print "没有异常"
+        return
+    finally:
+        print "最后总是要执行我"
+
+exception()
+
+
+#单例模式
+class Singleton(object):
+    instance=None
+    def __new__(cls, *args, **kwargs):
+        if not cls.instance:
+            cls.instance=super(Singleton, cls).__new__(cls, *args, **kwargs)
+        return cls.instance
+class MyClass(Singleton):
+    def __init__(self):
+        self.name="tom"
+        self.age=18
+    def fun(self):
+        return {self.name:self.age}
+
+one = MyClass()
+two =MyClass()
+print one
+print two
+print one.fun()
+
+def addlist(alist):
+    for i in alist:
+        yield i+1
+
+alist = [1, 2, 3, 4]
+
+for i in addlist(alist):
+    print i,
+
+#冒泡排序
+def maopao():
+    m=[1,3,2,5,6]
+    for i in range(len(m)):
+        for j in range(i,len(m)):
+            if m[i]>m[j]:
+              m[i], m[j]=m[j],m[i]
+    return m
+print maopao()
+
+
+def kuaisu(list):
+    more=[]
+    less=[]
+    con=[]
+    if len(list)<=1:
+        return list
+    else:
+        val = list[0]
+        for i in list:
+            if i > val:
+                more.append(i)
+            elif i < val:
+                less.append(i)
+            else:
+                con.append(i)
+        less=kuaisu(less)
+        more=kuaisu(more)
+        return less + con + more
+
+m=[1,3,2,5,8,7,9]
+print kuaisu(m)
+
+def quick_sort(list):
+    less = []
+    pivotList = []
+    more = []
+    # 递归出口
+    if len(list) <= 1:
+        return list
+    else:
+        # 将第一个值做为基准
+        pivot = list[0]
+        for i in list:
+            # 将比急转小的值放到less数列
+            if i < pivot:
+                less.append(i)
+            # 将比基准打的值放到more数列
+            elif i > pivot:
+                more.append(i)
+            # 将和基准相同的值保存在基准数列
+            else:
+                pivotList.append(i)
+        # 对less数列和more数列继续进行排序
+        less = quick_sort(less)
+        more = quick_sort(more)
+        return less + pivotList + more
+
+list=[1,3,2,5,8,7,9]
+print quick_sort(list)
